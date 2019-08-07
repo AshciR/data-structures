@@ -1,8 +1,8 @@
 package binarytree;
 
 class Node{
-    private Node left;
-    private Node right;
+    private Node leftChild;
+    private Node rightChild;
     private int data;
 
     public Node(int data){
@@ -11,30 +11,9 @@ class Node{
 
     public void insert(int value){
         if(value <= data){
-            left = insertIntoChild(left, value);
+            leftChild = insertIntoChild(leftChild, value);
         } else{
-            right = insertIntoChild(right, value);
-        }
-    }
-
-    public boolean contains(int value){
-        // Check if this node is the value
-        if(value == data){
-            return true;
-        }
-        // If the value is less than this node, let's check the left child
-        else if(value < data){
-            return doesChildContainValue(left, value);
-        } else{ // value is more than data, so let's check the right child
-            return doesChildContainValue(right, value);
-        }
-    }
-
-    private boolean doesChildContainValue(Node child, int value){
-        if(child == null){
-            return false;
-        } else{
-            return child.contains(value);
+            rightChild = insertIntoChild(rightChild, value);
         }
     }
 
@@ -47,12 +26,33 @@ class Node{
         return child;
     }
 
-    public Node getLeft(){
-        return left;
+    public boolean contains(int value){
+        // Check if this node is the value
+        if(value == data){
+            return true;
+        }
+        // If the value is less than this node, let's check the left child
+        else if(value < data){
+            return doesChildContainValue(leftChild, value);
+        } else{ // value is more than data, so let's check the right child
+            return doesChildContainValue(rightChild, value);
+        }
     }
 
-    public Node getRight(){
-        return right;
+    private boolean doesChildContainValue(Node child, int value){
+        if(child == null){
+            return false;
+        } else{
+            return child.contains(value);
+        }
+    }
+
+    public Node getLeftChild(){
+        return leftChild;
+    }
+
+    public Node getRightChild(){
+        return rightChild;
     }
 
     public int getData(){
@@ -62,8 +62,8 @@ class Node{
     @Override
     public String toString(){
         final StringBuilder sb = new StringBuilder("Node{");
-        sb.append("left=").append(left);
-        sb.append(", right=").append(right);
+        sb.append("leftChild=").append(leftChild);
+        sb.append(", rightChild=").append(rightChild);
         sb.append(", data=").append(data);
         sb.append('}');
         return sb.toString();
