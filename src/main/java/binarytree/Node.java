@@ -17,6 +17,27 @@ class Node{
         }
     }
 
+    public boolean contains(int value){
+        // Check if this node is the value
+        if(value == data){
+            return true;
+        }
+        // If the value is less than this node, let's check the left child
+        else if(value < data){
+            return doesChildContainValue(left, value);
+        } else{ // value is more than data, so let's check the right child
+            return doesChildContainValue(right, value);
+        }
+    }
+
+    private boolean doesChildContainValue(Node child, int value){
+        if(child == null){
+            return false;
+        } else{
+            return child.contains(value);
+        }
+    }
+
     private Node insertIntoChild(Node child, int value){
         if(child == null){
             child = new Node(value);
